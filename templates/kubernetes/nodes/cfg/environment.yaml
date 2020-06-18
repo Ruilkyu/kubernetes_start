@@ -1,0 +1,19 @@
+BOOTSTRAP_TOKEN=aada73279ef0b04e039d2817e33fcf65
+KUBE_APISERVER="https://{0}:{1}"
+
+./kubectl config set-cluster kubernetes \
+  --certificate-authority=../../../certs/kubernetes/ca.pem \
+  --embed-certs=true \
+  --server=${{KUBE_APISERVER}} \
+  --kubeconfig=bootstrap.kubeconfig
+
+./kubectl config set-credentials kubelet-bootstrap \
+  --token=${{BOOTSTRAP_TOKEN}} \
+  --kubeconfig=bootstrap.kubeconfig
+
+./kubectl config set-context default \
+  --cluster=kubernetes \
+  --user=kubelet-bootstrap \
+  --kubeconfig=bootstrap.kubeconfig
+
+./kubectl config use-context default --kubeconfig=bootstrap.kubeconfig

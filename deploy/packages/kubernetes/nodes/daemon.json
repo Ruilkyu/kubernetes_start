@@ -1,0 +1,4 @@
+{
+  "registry-mirrors": ["http://bc437cce.m.daocloud.io"],
+  "insecure-registries": ["10.10.4.17:8088"]
+}

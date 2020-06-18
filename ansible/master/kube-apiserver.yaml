@@ -1,0 +1,5 @@
+- hosts: master
+  remote_user: root
+  tasks:
+  - name: install master cfg
+    template: src=./kube-apiserver.j2 dest=/kubernetes/kubernetes/cfg/kube-apiserver

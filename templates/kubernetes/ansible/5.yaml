@@ -1,0 +1,27 @@
+KUBE_APISERVER_OPTS="--logtostderr=false \
+--v=2 \
+--alsologtostderr=false \
+--log-dir=/var/log/kube-apiserver \
+--event-ttl=1h \
+--etcd-servers=https://{0}:2379,https://{1}:2379,https://{2}:2379,https://{3}:2379,https://{4}:2379 \
+--bind-address={{{{master_ip}}}} \
+--secure-port=6443 \
+--advertise-address={{{{master_ip}}}} \
+--allow-privileged=true \
+--service-cluster-ip-range=10.0.0.0/16 \
+--enable-admission-plugins=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota,NodeRestriction \
+--authorization-mode=RBAC,Node \
+--enable-bootstrap-token-auth \
+--token-auth-file=/kubernetes/kubernetes/cfg/token.csv \
+--service-node-port-range=30000-50000 \
+--tls-cert-file=/kubernetes/kubernetes/ssl/server.pem  \
+--tls-private-key-file=/kubernetes/kubernetes/ssl/server-key.pem \
+--client-ca-file=/kubernetes/kubernetes/ssl/ca.pem \
+--service-account-key-file=/kubernetes/kubernetes/ssl/ca-key.pem \
+--audit-log-path=/var/log/kubernetes/kube-apiserver/kube-apiserver-audit.log \
+--audit-log-maxage=7 \
+--audit-log-maxbackup=6 \
+--audit-log-maxsize=100 \
+--etcd-cafile=/kubernetes/etcd/ssl/ca.pem \
+--etcd-certfile=/kubernetes/etcd/ssl/server.pem \
+--etcd-keyfile=/kubernetes/etcd/ssl/server-key.pem"

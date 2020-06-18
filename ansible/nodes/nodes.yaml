@@ -1,0 +1,10 @@
+- hosts: nodes
+  remote_user: root
+  tasks:
+  - name: install kubelet cfg
+    template: src=./kubelet.j2 dest=/kubernetes/kubernetes/cfg/kubelet
+  - name: install kubelet.config cfg
+    template: src=./kubelet.config.j2 dest=/kubernetes/kubernetes/cfg/kubelet.config
+
+  - name: install kube-proxy cfg
+    template: src=./kube-proxy.j2 dest=/kubernetes/kubernetes/cfg/kube-proxy

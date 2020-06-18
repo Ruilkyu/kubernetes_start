@@ -1,0 +1,5 @@
+[all:vars]
+ansible_ssh_port=62534
+
+[nodes]
+10.10.4.15 node_name=k8s-node-4-15 node_ip=10.10.4.15

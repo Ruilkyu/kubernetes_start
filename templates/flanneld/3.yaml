@@ -1,0 +1,2 @@
+FLANNEL_OPTIONS="--etcd-endpoints=https://{0}:2379,https://{1}:2379,https://{2}:2379 \
+-etcd-cafile=/kubernetes/etcd/ssl/ca.pem -etcd-certfile=/kubernetes/etcd/ssl/server.pem -etcd-keyfile=/kubernetes/etcd/ssl/server-key.pem"

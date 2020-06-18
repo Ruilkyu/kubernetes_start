@@ -1,0 +1,4 @@
+/kubernetes/etcd/bin/etcdctl --ca-file=/kubernetes/etcd/ssl/ca.pem --cert-file=/kubernetes/etcd/ssl/server.pem --key-file=/kubernetes/etcd/ssl/server-key.pem \
+ --endpoints='https://{0}:2379,https://{1}:2379,https://{2}:2379,https://{3}:2379,https://{4}:2379,https://{5}:2379,https://{6}:2379' \
+ set /coreos.com/network/config  \
+ '{{ "Network": "172.20.0.0/8", "Backend": {{"Type": "host-gw"}}}}'

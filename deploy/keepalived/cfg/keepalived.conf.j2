@@ -1,0 +1,27 @@
+global_defs {
+    router_id NodeA
+}
+
+vrrp_script chk_haproxy {
+        script "/etc/keepalived/check_haproxy.sh"
+        interval 5
+        weight 2
+}
+
+vrrp_instance VI_1 {
+    state MASTER    #设置为主服务器
+    interface bond0  #监测网络接口
+    virtual_router_id 148  #主、备必须一样
+    priority {{master_priority}}   #(主、备机取不同的优先级，主机值较大，备份机值较小,值越大优先级越高)
+    advert_int 1   #VRRP Multicast广播周期秒数
+    authentication {
+    auth_type PASS  #VRRP认证方式，主备必须一致
+    auth_pass 1111   #(密码)
+}
+virtual_ipaddress {
+    10.10.1.250/16  #VRRP HA虚拟地址
+}
+    track_script {
+      chk_haproxy
+}
+}

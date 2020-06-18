@@ -1,0 +1,5 @@
+- hosts: etcd
+  remote_user: root
+  tasks:
+  - name: install etcd cfg
+    template: src=./etcd.j2 dest=/kubernetes/etcd/cfg/etcd

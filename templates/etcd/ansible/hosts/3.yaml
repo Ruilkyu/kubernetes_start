@@ -1,0 +1,7 @@
+[all:vars]
+ansible_ssh_port={3}
+
+[etcd]
+{0}  etcd_name=etcd01 node_ip={0}
+{1}  etcd_name=etcd02 node_ip={1}
+{2}  etcd_name=etcd03 node_ip={2}

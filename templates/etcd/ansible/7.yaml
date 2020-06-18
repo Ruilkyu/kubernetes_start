@@ -1,0 +1,12 @@
+#[Member]
+ETCD_NAME="{{{{etcd_name}}}}"
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+ETCD_LISTEN_PEER_URLS="https://{{{{node_ip}}}}:2380"
+ETCD_LISTEN_CLIENT_URLS="https://{{{{node_ip}}}}:2379"
+
+#[Clustering]
+ETCD_INITIAL_ADVERTISE_PEER_URLS="https://{{{{node_ip}}}}:2380"
+ETCD_ADVERTISE_CLIENT_URLS="https://{{{{node_ip}}}}:2379"
+ETCD_INITIAL_CLUSTER="etcd01=https://{0}:2380,etcd02=https://{1}:2380,etcd03=https://{2}:2380,etcd04=https://{3}:2380,etcd05=https://{4}:2380,etcd06=https://{5}:2380,etcd07=https://{6}:2380"
+ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster"
+ETCD_INITIAL_CLUSTER_STATE="new"

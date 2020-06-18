@@ -1,0 +1,10 @@
+KUBELET_OPTS="--logtostderr=false \
+--v=2 \
+--alsologtostderr=false \
+--log-dir=/var/log/kubelet \
+--hostname-override={{node_name}} \
+--kubeconfig=/kubernetes/kubernetes/cfg/kubelet.kubeconfig \
+--bootstrap-kubeconfig=/kubernetes/kubernetes/cfg/bootstrap.kubeconfig \
+--config=/kubernetes/kubernetes/cfg/kubelet.config \
+--cert-dir=/kubernetes/kubernetes/ssl \
+--pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0"

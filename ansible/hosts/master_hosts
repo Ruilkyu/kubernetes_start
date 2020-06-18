@@ -1,0 +1,7 @@
+[all:vars]
+ansible_ssh_port=62534
+
+[master]
+10.10.4.11  master_ip=10.10.4.11 master_priority=100
+10.10.4.12  master_ip=10.10.4.12 master_priority=90
+10.10.4.13  master_ip=10.10.4.13 master_priority=80

@@ -1,0 +1,12 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+EnvironmentFile=/kubernetes/kubernetes/cfg/kube-apiserver
+ExecStart=/kubernetes/kubernetes/bin/kube-apiserver $KUBE_APISERVER_OPTS
+LimitNOFILE=65536
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

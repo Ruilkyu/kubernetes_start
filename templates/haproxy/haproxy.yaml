@@ -1,0 +1,37 @@
+global
+    log         127.0.0.1 local2
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+    stats socket /var/lib/haproxy/stats
+defaults
+    mode                   tcp
+    log                     global
+    timeout connect         10s
+    timeout client          1m
+    timeout server          1m
+    timeout check           10s
+    maxconn                 3000
+frontend         kube-api
+bind             0.0.0.0:{0}
+mode             tcp
+log              global
+default_backend  kube-client
+
+backend         kube-client
+    balance     source
+    server  k8s-node1 {1}:6443 check inter 2000 fall 2
+    server  k8s-node2 {2}:6443 check inter 2000 fall 2
+    server  k8s-node3 {3}:6443 check inter 2000 fall 2
+listen stats
+mode http
+bind 0.0.0.0:1080
+stats enable
+stats hide-version
+stats uri /haproxyadmin?stats
+stats realm Haproxy\ Statistics
+stats auth admin:admin
+stats admin if TRUE

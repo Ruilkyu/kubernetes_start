@@ -1,0 +1,6 @@
+KUBE_SCHEDULER_OPTS="--logtostderr=false \
+--v=2 \
+--alsologtostderr=false \
+--log-dir=/var/log/kube-scheduler \
+--master=127.0.0.1:8080 \
+--leader-elect=true"
