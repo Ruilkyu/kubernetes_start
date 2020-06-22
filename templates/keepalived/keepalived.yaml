@@ -20,7 +20,7 @@ vrrp_instance VI_1 {{
     auth_pass 1111   #(密码)
 }}
 virtual_ipaddress {{
-    {0}/16  #VRRP HA虚拟地址
+    {0}  #VRRP HA虚拟地址
 }}
     track_script {{
       chk_haproxy
