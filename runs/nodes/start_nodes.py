@@ -30,7 +30,7 @@ def start_nodes():
 
     os.system('chmod +x {0}/start_nodes.sh'.format(start_nodes_path))
 
-    os.system(start_nodes_path + '/start_nodes.sh ' + start_nodes_path + '' + nodespath + '' + package_path + '' + cfg_path + '' + yml_path)
+    os.system(start_nodes_path + '/start_nodes.sh ' + start_nodes_path + ' ' + nodespath + ' ' + package_path + ' ' + cfg_path + ' ' + yml_path)
 
 
 

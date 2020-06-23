@@ -32,7 +32,7 @@ def dockerdep():
 
     os.system('chmod +x {0}/start_docker.sh'.format(start_init_path))
 
-    os.system(start_init_path + '/start_docker.sh ' + start_init_path + '' + hostspath + '' + dockerpath)
+    os.system(start_init_path + '/start_docker.sh ' + start_init_path + ' ' + hostspath + ' ' + dockerpath)
 
     # print("Sir,Starting Copy docker-compose!")
     # try:

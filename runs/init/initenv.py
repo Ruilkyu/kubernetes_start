@@ -64,7 +64,7 @@ def initenv(module):
         print("Sir,Old Kubernetes Has Deleted!")
 
     if module == "nodes":
-        os.system(start_init_path + '/start_initenv.sh ' + start_init_path + '' + nodespath)
+        os.system(start_init_path + '/start_initenv.sh ' + start_init_path + ' ' + nodespath)
         # print("Sir,Starting Stop Old Kubernetes!")
         # try:
         #     stop_kubernetes = subprocess.check_output(

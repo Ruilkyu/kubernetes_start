@@ -32,7 +32,7 @@ def start_flanneld():
 
     os.system('chmod +x {0}/start_flanneld.sh'.format(start_flanneld_path))
 
-    os.system(start_flanneld_path + '/start_flanneld.sh ' + start_flanneld_path + '' + nodespath + '' + cert_path + '' + package_path + '' + cfg_path + '' + yml_path)
+    os.system(start_flanneld_path + '/start_flanneld.sh ' + start_flanneld_path + ' ' + nodespath + ' ' + cert_path + ' ' + package_path + ' ' + cfg_path + ' ' + yml_path)
 
 
 
