@@ -13,11 +13,16 @@
 作者：lurui
 修改：
 1、兼容同一节点，多个服务（master/etcd nodes/etcd）
+
+时间：2020/6/23
+作者：lurui
+修改：nodes模块的ansible批量操作转调用shell执行
 """
 
 import os
 import sys
 import subprocess
+
 
 # module = sys.argv[1]
 
@@ -33,11 +38,15 @@ def initenv(module):
 
     dockerpath = basedir + '/deploy/init-env/docker-dep'
 
+    start_init_path = basedir + '/deploy/init-env'
+
+    os.system('chmod +x {0}/start_initenv.sh'.format(start_init_path))
+
     if module == "master":
         print("Sir,Starting Stop Old Kubernetes!")
         try:
             stop_kubernetes = subprocess.check_output(
-                '''ansible master -i {0} -m shell -a "systemctl stop kubelet && systemctl stop kube-proxy && systemctl stop flanneld && systemctl stop docker && rm -rf /var/lib/docker/*"'''.format(
+                '''ansible master -i {0} -m shell -a "systemctl stop kube-apiserver && systemctl stop kube-controller-manager && systemctl stop kube-scheduler && systemctl stop kubelet && systemctl stop kube-proxy && systemctl stop flanneld && systemctl stop docker && rm -rf /var/lib/docker/*"'''.format(
                     masterpath), shell=True)
             print(stop_kubernetes.decode())
         except Exception as e:
@@ -55,25 +64,26 @@ def initenv(module):
         print("Sir,Old Kubernetes Has Deleted!")
 
     if module == "nodes":
-        print("Sir,Starting Stop Old Kubernetes!")
-        try:
-            stop_kubernetes = subprocess.check_output(
-                '''ansible nodes -i {0} -m shell -a "systemctl stop kubelet && systemctl stop kube-proxy && systemctl stop flanneld && systemctl stop docker && rm -rf /var/lib/docker/*"'''.format(
-                    nodespath), shell=True)
-            print(stop_kubernetes.decode())
-        except Exception as e:
-            print(e)
-        print("Sir,Old Kubernetes Has Stop!")
-
-        print("Sir,Starting Delete Old Kubernetes!")
-        try:
-            delete_kubernetes = subprocess.check_output(
-                '''ansible nodes -i {0} -m shell -a "rm -rf /kubernetes/kubernetes/*"'''.format(nodespath),
-                shell=True)
-            print(delete_kubernetes.decode())
-        except Exception as e:
-            print(e)
-        print("Sir,Old Kubernetes Has Deleted!")
+        os.system(start_init_path + '/start_initenv.sh ' + start_init_path + '' + nodespath)
+        # print("Sir,Starting Stop Old Kubernetes!")
+        # try:
+        #     stop_kubernetes = subprocess.check_output(
+        #         '''ansible nodes -i {0} -m shell -a "systemctl stop kubelet && systemctl stop kube-proxy && systemctl stop flanneld && systemctl stop docker && rm -rf /var/lib/docker/*"'''.format(
+        #             nodespath), shell=True)
+        #     print(stop_kubernetes.decode())
+        # except Exception as e:
+        #     print(e)
+        # print("Sir,Old Kubernetes Has Stop!")
+        #
+        # print("Sir,Starting Delete Old Kubernetes!")
+        # try:
+        #     delete_kubernetes = subprocess.check_output(
+        #         '''ansible nodes -i {0} -m shell -a "rm -rf /kubernetes/kubernetes/*"'''.format(nodespath),
+        #         shell=True)
+        #     print(delete_kubernetes.decode())
+        # except Exception as e:
+        #     print(e)
+        # print("Sir,Old Kubernetes Has Deleted!")
 
     if module == "etcd":
         print("Sir,Starting Stop Old Etcd!")
@@ -142,7 +152,9 @@ def initenv(module):
 
         print("Sir,Starting Add Config Files!")
         try:
-            a = subprocess.check_output('''ansible harbor -i {0} -m copy -a "src={1}/harbor.service dest=/usr/lib/systemd/system/docker.service"'''.format(harborpath, dockerpath), shell=True)
+            a = subprocess.check_output(
+                '''ansible harbor -i {0} -m copy -a "src={1}/harbor.service dest=/usr/lib/systemd/system/docker.service"'''.format(
+                    harborpath, dockerpath), shell=True)
             print(a.decode())
             print("Sir,Add Config Files Completed!")
         except Exception as e:
@@ -150,7 +162,9 @@ def initenv(module):
 
         print("Sir,Starting Run Docker!")
         try:
-            a = subprocess.check_output('''ansible harbor -i {0} -m shell -a "systemctl daemon-reload && systemctl enable docker && systemctl restart docker"'''.format(harborpath), shell=True)
+            a = subprocess.check_output(
+                '''ansible harbor -i {0} -m shell -a "systemctl daemon-reload && systemctl enable docker && systemctl restart docker"'''.format(
+                    harborpath), shell=True)
             print(a.decode())
             print("Sir,Run Docker Completed!")
         except Exception as e:
@@ -158,7 +172,9 @@ def initenv(module):
 
         print("Sir,Starting Stop Old Harbor!")
         try:
-            stop_harbor = subprocess.check_output('''ansible harbor -i {0} -m shell -a "cd /srv/harbor && docker-compose down && cd /srv && rm -rf harbor"'''.format(harborpath), shell=True)
+            stop_harbor = subprocess.check_output(
+                '''ansible harbor -i {0} -m shell -a "cd /srv/harbor && docker-compose down && cd /srv && rm -rf harbor"'''.format(
+                    harborpath), shell=True)
             print(stop_harbor.decode())
         except Exception as e:
             print(e)
@@ -166,13 +182,15 @@ def initenv(module):
 
         print("Sir,Starting Copy New Harbor!")
         try:
-            copy_new_harbor = subprocess.check_output('''ansible harbor -i {0} -m copy -a "src={1}/deploy/packages/harbor dest=/srv/"'''.format(harborpath, basedir), shell=True)
+            copy_new_harbor = subprocess.check_output(
+                '''ansible harbor -i {0} -m copy -a "src={1}/deploy/packages/harbor dest=/srv/"'''.format(harborpath,
+                                                                                                          basedir),
+                shell=True)
             print(copy_new_harbor.decode())
         except Exception as e:
             print(e)
         print("Sir,Copy New Harbor Has Completed!")
 
     os.system(initpath + 'start.sh ' + initpath + ' ' + hostspath + ' ' + module)
-
 
 # initenv()

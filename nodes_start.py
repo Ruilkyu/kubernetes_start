@@ -37,11 +37,9 @@ def start():
 
     start_nodes()
 
-    time.sleep(60)
-    start_write_nodes_master()
-    time.sleep(10)
-    start_csr()
     time.sleep(3)
+    start_write_nodes_master()
+    start_csr()
     start_distribute_img()
     start_labels_nodes()
 
