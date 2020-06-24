@@ -24,7 +24,7 @@ def start_write_nodes_master():
         os.mknod(listpath)
         ipfile = open(listpath, mode="r", encoding='utf-8')
 
-    print("Sir,Starting Write Nodes Domain To Master!")
+    print("BOSS,Starting Write Nodes Domain To Master!")
     try:
         for i in ipfile.readlines():
             i = i.strip()
@@ -33,7 +33,7 @@ def start_write_nodes_master():
             try:
                 subprocess.check_output(
                     '''ansible master -i {0} -m shell -a "echo '10.10.{1}.{2} k8s-node{1}-{2}' >> /etc/hosts"'''.format(masterpath, first, second), shell=True)
-                print("Sir,Write Nodes Domain To Master Completed!")
+                print("BOSS,Write Nodes Domain To Master Completed!")
             except Exception as e:
                 print(e)
 

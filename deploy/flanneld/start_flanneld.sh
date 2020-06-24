@@ -32,7 +32,7 @@ echo "BOSS,Starting Copy Flanneld Bin!"
 ansible nodes -i ${2} -m copy -a "src=${4}/flanneld dest=/tmp/"
 ansible nodes -i ${2} -m shell -a "cd /tmp/flanneld && chmod +x * && cp * /kubernetes/kubernetes/bin/ && rm -rf /tmp/*"
 
-echo "Sir,Copy Flanneld Bin Has Completed!"
+echo "BOSS,Copy Flanneld Bin Has Completed!"
 
 
 echo "BOSS,Starting Start Flanneld And Docker!"

@@ -17,7 +17,7 @@ def start_csr():
     cfgpath = basedir + '/deploy/packages/csr'
     masterpath = basedir + '/ansible/hosts/master_hosts'
 
-    print("Sir,Starting Copy CSR Scripts!")
+    print("BOSS,Starting Copy CSR Scripts!")
     try:
         copy_csr_sh = subprocess.check_output(
             '''ansible master -i {0} -m copy -a "src={1}/csr.sh dest=/tmp/"'''.format(masterpath, cfgpath), shell=True)
@@ -28,6 +28,6 @@ def start_csr():
         print(add_nodes_cfg.decode())
     except Exception as e:
         print(e)
-    print("Sir,Copy CSR Scripts Has Completed!")
+    print("BOSS,Copy CSR Scripts Has Completed!")
 
 # start_csr()
