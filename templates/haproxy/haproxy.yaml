@@ -2,7 +2,7 @@ global
     log         127.0.0.1 local2
     chroot      /var/lib/haproxy
     pidfile     /var/run/haproxy.pid
-    maxconn     4000
+    maxconn     65535
     user        haproxy
     group       haproxy
     daemon
@@ -14,7 +14,7 @@ defaults
     timeout client          1m
     timeout server          1m
     timeout check           10s
-    maxconn                 3000
+    maxconn                 65535
 frontend         kube-api
 bind             0.0.0.0:{0}
 mode             tcp
