@@ -4,7 +4,7 @@ KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
 --log-dir=/var/log/kube-controller-manager \
 --master=127.0.0.1:8080 \
 --leader-elect=true \
---address=127.0.0.1 \
+--bind-address=127.0.0.1 \
 --service-cluster-ip-range=10.100.0.0/16 \
 --cluster-name=kubernetes \
 --cluster-signing-cert-file=/kubernetes/kubernetes/ssl/ca.pem \
