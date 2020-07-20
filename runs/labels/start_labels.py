@@ -42,7 +42,7 @@ def start_labels_nodes():
             second = i.split('.')[3]
 
             try:
-                subprocess.check_output('''ansible master -i {0} -m shell -a "/kubernetes/kubernetes/bin/kubectl label nodes k8s-node-{1}-{2} lotus=node{1}{2}"'''.format(masterpath, first, second), shell=True)
+                subprocess.check_output('''ansible master -i {0} -m shell -a "/kubernetes/kubernetes/bin/kubectl label nodes k8s-node-{1}-{2} lotus=node{1}-{2}"'''.format(masterpath, first, second), shell=True)
                 print("Sir,Label Nodes Completed!")
             except Exception as e:
                 print(e)
