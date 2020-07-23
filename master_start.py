@@ -6,6 +6,10 @@
 时间：2020/6/24
 作者：lurui
 功能：master各模块启动顺序，优先生成master_hosts
+
+时间：2020/7/23
+作者：lurui
+功能：master添加非高可用模式
 """
 
 # -*- coding: utf-8 -*-
@@ -23,21 +27,40 @@ from runs.init.initenv import initenv
 from runs.certs.copycerts import copycerts
 from runs.kubernetes.start_master import start_master
 
+import configparser
+import os
+
+basedir = os.path.abspath('.')
+
 
 def start():
-    start_ansible()
-    start_ansible_hosts()
-    start_cert()
-    gencerts('master')
+    config = configparser.ConfigParser()
+    config.read(basedir + '/cfg/config.ini')
+    master_nums = int(config['MASTER']['nums'])
 
-    start_haproxy_cfg()
-    start_haproxy()
-    start_keepalived_cfg()
-    start_keepalived()
+    if master_nums == 1:
+        start_ansible()
+        start_ansible_hosts()
+        start_cert()
+        gencerts('master')
 
-    initenv('master')
-    copycerts('master')
-    start_master()
+        initenv('master')
+        copycerts('master')
+        start_master()
+    else:
+        start_ansible()
+        start_ansible_hosts()
+        start_cert()
+        gencerts('master')
+
+        start_haproxy_cfg()
+        start_haproxy()
+        start_keepalived_cfg()
+        start_keepalived()
+
+        initenv('master')
+        copycerts('master')
+        start_master()
 
 
 start()

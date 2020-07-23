@@ -3,10 +3,11 @@
 ## 一、注意：
 ```
 1、etcd支持1、3、5、7节点
-2、master只支持3节点
+2、master支持1、3节点
 ```
 ## 二、配置准备
 ### 1、HARBOR、VIP、SSH、ETCD和MASTER配置信息
+#### 1.1、3个master和3个etcd
 ```
 例如：
 vi ./cfg/config.ini
@@ -16,7 +17,7 @@ port=8088
 [VIP]
 vip=10.10.1.250
 port=8443
-virtual_router_id=146
+virtual_router_id=148
 interface=bond0
 [SSH]
 port=62534
@@ -26,10 +27,39 @@ etcd1=10.10.4.18
 etcd2=10.10.1.11
 etcd3=10.10.1.12
 [MASTER]
+nums=3
 master1=10.10.4.11
 master2=10.10.4.12
 master3=10.10.4.13
+[LABEL]
+Key=lotus
+Value=node
 ```
+#### 1.2、1个master和1个etcd(注意：VIP与master相同, port为6443)
+```
+例如：
+vi ./cfg/config.ini
+[HARBOR]
+host=10.10.4.17
+port=8088
+[VIP]
+vip=10.10.4.11
+port=6443
+virtual_router_id=148
+interface=bond0
+[SSH]
+port=62534
+[ETCD]
+nums=1
+etcd1=10.10.4.18
+[MASTER]
+nums=1
+master1=10.10.4.11
+[LABEL]
+Key=lotus
+Value=node
+```
+
 ### 2、nodes列表
 ```
 vi ./cfg/nodes.txt
@@ -183,4 +213,8 @@ python3 ./master_start.py
 ### 4、部署Nodes节点
 ```
 python3 ./nodes_start.py
+```
+### 5、节点label
+```
+python3 ./label_start.py
 ```

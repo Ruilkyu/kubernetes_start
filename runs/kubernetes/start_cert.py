@@ -10,6 +10,10 @@
 时间：2020/6/17
 作者：lurui
 修改：基路径 basedir = os.path.dirname(os.path.dirname(os.getcwd()))，改为调用者路径 basedir = os.path.abspath('.')
+
+时间：2020/7/23
+作者：lurui
+修改：调整支持1、3节点
 """
 
 import os
@@ -20,6 +24,7 @@ def start_cert():
     basedir = os.path.abspath('.')
     config = configparser.ConfigParser()
     config.read(basedir + '/cfg/config.ini')
+    master_nums = int(config['MASTER']['nums'])
     # master_list = basedir + '/cfg/master.txt'
     # try:
     #     master_list_fh = open(master_list, mode="r", encoding='utf-8')
@@ -27,7 +32,7 @@ def start_cert():
     #     os.mknod(master_list)
     #     master_list_fh = open(master_list, mode="r", encoding='utf-8')
 
-    master_cert_templates = basedir + '/templates/kubernetes/certs/3.yaml'
+    master_cert_templates = basedir + '/templates/kubernetes/certs/{0}.yaml'.format(master_nums)
     try:
         master_cert_templates_fh = open(master_cert_templates, mode="r", encoding='utf-8')
     except FileNotFoundError:
@@ -56,13 +61,26 @@ def start_cert():
         # for l in master_list_fh.readlines():
         #     masterlist.append(l.strip("\n"))
 
-        master1 = config['MASTER']['master1']
-        master2 = config['MASTER']['master2']
-        master3 = config['MASTER']['master3']
-        vip = config['VIP']['vip']
 
         resultdate = ""
-        resultdate = master_cert_data.format(master1, master2, master3, vip)
+        if master_nums == 1:
+            master1 = config['MASTER']['master1']
+            # vip = config['VIP']['vip']
+            resultdate = master_cert_data.format(master1)
+        elif master_nums == 3:
+            master1 = config['MASTER']['master1']
+            master2 = config['MASTER']['master2']
+            master3 = config['MASTER']['master3']
+            vip = config['VIP']['vip']
+            resultdate = master_cert_data.format(master1, master2, master3, vip)
+
+        # master1 = config['MASTER']['master1']
+        # master2 = config['MASTER']['master2']
+        # master3 = config['MASTER']['master3']
+        # vip = config['VIP']['vip']
+        #
+        # resultdate = ""
+        # resultdate = master_cert_data.format(master1, master2, master3, vip)
 
         file.write(resultdate)
         file.close()

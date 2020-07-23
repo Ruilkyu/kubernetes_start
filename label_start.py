@@ -11,7 +11,7 @@ basedir = os.path.abspath('.')
 
 def start_label():
     config = configparser.ConfigParser()
-    config.read(basedir + '/config.ini')
+    config.read(basedir + '/cfg/config.ini')
     k = config['LABEL']['Key']
     v = config['LABEL']['Value']
 

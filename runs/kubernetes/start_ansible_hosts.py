@@ -10,6 +10,10 @@
 时间：2020/6/17
 作者：lurui
 修改：基路径 basedir = os.path.dirname(os.path.dirname(os.getcwd()))，改为调用者路径 basedir = os.path.abspath('.')
+
+时间：2020/7/23
+作者：lurui
+修改：调整支持1、3节点
 """
 
 import os
@@ -22,6 +26,7 @@ def start_ansible_hosts():
     # config.read(basedir + '/cfg/ssh.ini')
     config.read(basedir + '/cfg/config.ini')
     port = config['SSH']['port']
+    master_nums = int(config['MASTER']['nums'])
 
     # master_list = basedir + '/cfg/master.txt'
     # try:
@@ -30,7 +35,7 @@ def start_ansible_hosts():
     #     os.mknod(master_list)
     #     master_list_fh = open(master_list, mode="r", encoding='utf-8')
 
-    master_ansible_hosts_templates = basedir + '/templates/kubernetes/ansible/hosts/3.yaml'
+    master_ansible_hosts_templates = basedir + '/templates/kubernetes/ansible/hosts/{0}.yaml'.format(master_nums)
     try:
         master_ansible_hosts_templates_fh = open(master_ansible_hosts_templates, mode="r", encoding='utf-8')
     except FileNotFoundError:
@@ -59,12 +64,18 @@ def start_ansible_hosts():
         # for l in master_list_fh.readlines():
         #     masterlist.append(l.strip("\n"))
 
-        master1 = config['MASTER']['master1']
-        master2 = config['MASTER']['master2']
-        master3 = config['MASTER']['master3']
-
         resultdate = ""
-        resultdate = master_ansible_hosts_data.format(master1, master2, master3, port)
+        if master_nums == 1:
+            master1 = config['MASTER']['master1']
+            resultdate = master_ansible_hosts_data.format(master1, port)
+        elif master_nums == 3:
+            master1 = config['MASTER']['master1']
+            master2 = config['MASTER']['master2']
+            master3 = config['MASTER']['master3']
+            resultdate = master_ansible_hosts_data.format(master1, master2, master3, port)
+
+        # resultdate = ""
+        # resultdate = master_ansible_hosts_data.format(master1, master2, master3, port)
         # resultdate = master_ansible_hosts_data.format(masterlist[0], masterlist[1], masterlist[2], port)
 
         file.write(resultdate)
