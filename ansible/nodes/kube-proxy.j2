@@ -3,5 +3,5 @@ KUBE_PROXY_OPTS="--logtostderr=false \
 --alsologtostderr=false \
 --log-dir=/var/log/kube-proxy \
 --hostname-override={{node_name}} \
---cluster-cidr=10.100.0.0/16 \
+--cluster-cidr=10.0.0.0/16 \
 --kubeconfig=/kubernetes/kubernetes/cfg/kube-proxy.kubeconfig"
