@@ -6,6 +6,7 @@ KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
 --leader-elect=true \
 --bind-address=127.0.0.1 \
 --service-cluster-ip-range=10.0.0.0/16 \
+--cluster-cidr=172.20.0.0/8 \
 --cluster-name=kubernetes \
 --cluster-signing-cert-file=/kubernetes/kubernetes/ssl/ca.pem \
 --cluster-signing-key-file=/kubernetes/kubernetes/ssl/ca-key.pem  \
