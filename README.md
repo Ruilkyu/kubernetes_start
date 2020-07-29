@@ -216,5 +216,6 @@ python3 ./nodes_start.py
 ```
 ### 5、节点label
 ```
+将cfg目录和label_start.py发送到master节点同一目录
 python3 ./label_start.py
 ```
