@@ -1,4 +1,4 @@
 {{
-  "registry-mirrors": ["http://bc437cce.m.daocloud.io"],
+  "registry-mirrors": ["https://7oyfmyeu.mirror.aliyuncs.com"],
   "insecure-registries": ["{0}:{1}"]
 }}
