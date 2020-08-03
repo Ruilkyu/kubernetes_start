@@ -34,6 +34,10 @@ master3=10.10.4.13
 [LABEL]
 Key=lotus
 Value=node
+[MASTER_RECOVERY]
+nums=1
+priority1=80
+master1=10.10.4.13
 ```
 #### 1.2、1个master和1个etcd(注意：VIP与master相同, port为6443)
 ```
@@ -218,4 +222,8 @@ python3 ./nodes_start.py
 ```
 将cfg目录和label_start.py发送到master节点同一目录
 python3 ./label_start.py
+```
+### 6、修复master节点
+```
+python3 ./recovery_master_start.py
 ```

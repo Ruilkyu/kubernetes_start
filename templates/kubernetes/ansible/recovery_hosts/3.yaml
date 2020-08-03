@@ -1,0 +1,7 @@
+[all:vars]
+ansible_ssh_port={3}
+
+[master]
+{0}  master_ip={0} master_priority={4}
+{1}  master_ip={1} master_priority={5}
+{2}  master_ip={2} master_priority={6}
