@@ -4,6 +4,7 @@
 ```
 1、etcd支持1、3、5、7节点
 2、master支持1、3节点
+3、支持master节点故障恢复
 ```
 ## 二、配置准备
 ### 1、HARBOR、VIP、SSH、ETCD和MASTER配置信息
@@ -62,6 +63,10 @@ master1=10.10.4.11
 [LABEL]
 Key=lotus
 Value=node
+[MASTER_RECOVERY]
+nums=1
+priority1=80
+master1=10.10.4.13
 ```
 
 ### 2、nodes列表
