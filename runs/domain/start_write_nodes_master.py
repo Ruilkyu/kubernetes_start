@@ -6,6 +6,10 @@
 时间：2020/6/17
 作者：lurui
 修改：基路径 basedir = os.path.dirname(os.path.dirname(os.getcwd()))，改为调用者路径 basedir = os.path.abspath('.')
+
+时间：2020/8/4
+作者：lurui
+修改：修改/etc/hosts写入IP
 """
 
 import os
