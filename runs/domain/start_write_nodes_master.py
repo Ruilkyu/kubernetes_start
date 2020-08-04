@@ -28,11 +28,13 @@ def start_write_nodes_master():
     try:
         for i in ipfile.readlines():
             i = i.strip()
-            first = i.split('.')[2]
-            second = i.split('.')[3]
+            first = i.split('.')[0]
+            second = i.split('.')[1]
+            third = i.split('.')[2]
+            fouth = i.split('.')[3]
             try:
                 subprocess.check_output(
-                    '''ansible master -i {0} -m shell -a "echo '10.10.{1}.{2} k8s-node-{1}-{2}' >> /etc/hosts"'''.format(masterpath, first, second), shell=True)
+                    '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(masterpath, first, second, third, fouth), shell=True)
                 print("BOSS,Write Nodes Domain To Master Completed!")
             except Exception as e:
                 print(e)
