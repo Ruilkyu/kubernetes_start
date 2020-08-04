@@ -17,6 +17,10 @@
 时间：2020/6/23
 作者：lurui
 修改：nodes模块的ansible批量操作转调用shell执行
+
+时间：2020/8/4
+作者：lurui
+修改：harbor添加daemon.json
 """
 
 import os
