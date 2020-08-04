@@ -37,6 +37,7 @@ def initenv(module):
     harborpath = hostspath + '/harbor_hosts'
 
     dockerpath = basedir + '/deploy/init-env/docker-dep'
+    docker_daemon_path = basedir + '/deploy/packages'
 
     start_init_path = basedir + '/deploy/init-env'
 
@@ -157,6 +158,16 @@ def initenv(module):
                     harborpath, dockerpath), shell=True)
             print(a.decode())
             print("Sir,Add Config Files Completed!")
+        except Exception as e:
+            print(e)
+
+        print("Sir,Starting Add daemon.json File!")
+        try:
+            a = subprocess.check_output(
+                '''ansible harbor -i {0} -m copy -a "src={1}/kubernetes/nodes/daemon.json dest=/etc/docker/"'''.format(
+                    harborpath, docker_daemon_path), shell=True)
+            print(a.decode())
+            print("Sir,Add daemon.json File Completed!")
         except Exception as e:
             print(e)
 
