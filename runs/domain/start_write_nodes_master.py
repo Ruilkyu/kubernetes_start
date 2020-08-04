@@ -10,17 +10,40 @@
 时间：2020/8/4
 作者：lurui
 修改：修改/etc/hosts写入IP
+
+时间：2020/8/4
+作者：lurui
+修改：for循环改为multiprocessing.Pool.map方法（并行化）
 """
 
 import os
 import subprocess
 import configparser
+from multiprocessing import Pool
+
+
+def write_nodes_domain(ip_str):
+    basedir = os.path.abspath('.')
+    masterpath = basedir + '/ansible/hosts/master_hosts'
+    i = str(ip_str).strip()
+    first = i.split('.')[0]
+    second = i.split('.')[1]
+    third = i.split('.')[2]
+    fouth = i.split('.')[3]
+    try:
+        subprocess.check_output(
+            '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(
+                masterpath, first, second, third, fouth), shell=True)
+    except Exception as e:
+        print(e)
 
 
 def start_write_nodes_master():
     basedir = os.path.abspath('.')
     listpath = basedir + '/cfg/nodes.txt'
     masterpath = basedir + '/ansible/hosts/master_hosts'
+
+    ip_list = []
 
     try:
         ipfile = open(listpath, mode="r", encoding='utf-8')
@@ -32,19 +55,29 @@ def start_write_nodes_master():
     try:
         for i in ipfile.readlines():
             i = i.strip()
-            first = i.split('.')[0]
-            second = i.split('.')[1]
-            third = i.split('.')[2]
-            fouth = i.split('.')[3]
-            try:
-                subprocess.check_output(
-                    '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(
-                        masterpath, first, second, third, fouth), shell=True)
-                print("BOSS,Write Nodes Domain To Master Completed!")
-            except Exception as e:
-                print(e)
+            ip_list.append(i)
+            # first = i.split('.')[0]
+            # second = i.split('.')[1]
+            # third = i.split('.')[2]
+            # fouth = i.split('.')[3]
+            # try:
+            #     subprocess.check_output(
+            #         '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(
+            #             masterpath, first, second, third, fouth), shell=True)
+            #     print("BOSS,Write Nodes Domain To Master Completed!")
+            # except Exception as e:
+            #     print(e)
 
     except Exception as e:
         print(e)
+
+    pool = Pool()
+    pool.map(write_nodes_domain, ip_list)
+    pool.close()
+    pool.join()
+    print("BOSS,Write Nodes Domain To Master Completed!")
+
+
+
 
 # start_write_nodes_master()
