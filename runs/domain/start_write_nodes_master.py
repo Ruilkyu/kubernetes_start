@@ -38,13 +38,13 @@ def start_write_nodes_master():
             fouth = i.split('.')[3]
             try:
                 subprocess.check_output(
-                    '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(masterpath, first, second, third, fouth), shell=True)
+                    '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(
+                        masterpath, first, second, third, fouth), shell=True)
                 print("BOSS,Write Nodes Domain To Master Completed!")
             except Exception as e:
                 print(e)
 
     except Exception as e:
         print(e)
-
 
 # start_write_nodes_master()
