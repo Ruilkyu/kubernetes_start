@@ -2,15 +2,12 @@
 时间：2020/6/15
 作者：lurui
 功能：向master中写入nodes的对应关系(例如：10.10.52.30 k8s-node52-30)
-
 时间：2020/6/17
 作者：lurui
 修改：基路径 basedir = os.path.dirname(os.path.dirname(os.getcwd()))，改为调用者路径 basedir = os.path.abspath('.')
-
 时间：2020/8/4
 作者：lurui
 修改：修改/etc/hosts写入IP
-
 时间：2020/8/4
 作者：lurui
 修改：for循环改为multiprocessing.Pool.map方法（并行化）
@@ -31,6 +28,13 @@ def write_nodes_domain(ip_str):
     third = i.split('.')[2]
     fouth = i.split('.')[3]
     try:
+        # subprocess.check_output(
+        #     '''ansible master -i {0} -m shell -a "echo '{1}.{2}.{3}.{4} k8s-node-{3}-{4}' >> /etc/hosts"'''.format(
+        #         masterpath, first, second, third, fouth), shell=True)
+        tmp = subprocess.check_output(
+            '''ansible master -i {0} -m shell -a "cat /etc/hosts | grep {1}.{2}.{3}.{4}"'''.format(
+                masterpath, first, second, third, fouth), shell=True)
+    except subprocess.CalledProcessError:
         subprocess.check_output(
             '''ansible master -i {0} -m shell -a "echo '{1}.{2}.{3}.{4} k8s-node-{3}-{4}' >> /etc/hosts"'''.format(
                 masterpath, first, second, third, fouth), shell=True)
@@ -70,11 +74,13 @@ def start_write_nodes_master():
 
     except Exception as e:
         print(e)
-
-    pool = Pool()
-    pool.map(write_nodes_domain, ip_list)
-    pool.close()
-    pool.join()
+    try:
+        pool = Pool()
+        pool.map(write_nodes_domain, ip_list)
+        pool.close()
+        pool.join()
+    except Exception as e:
+        print(e)
     print("BOSS,Write Nodes Domain To Master Completed!")
 
 
