@@ -32,7 +32,7 @@ def write_nodes_domain(ip_str):
     fouth = i.split('.')[3]
     try:
         subprocess.check_output(
-            '''ansible master -i {0} -m shell -a "echo '{0}.{1}.{2}.{3} k8s-node-{2}-{3}' >> /etc/hosts"'''.format(
+            '''ansible master -i {0} -m shell -a "echo '{1}.{2}.{3}.{4} k8s-node-{3}-{4}' >> /etc/hosts"'''.format(
                 masterpath, first, second, third, fouth), shell=True)
     except Exception as e:
         print(e)
