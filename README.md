@@ -6,6 +6,15 @@
 2、master支持1、3节点
 3、支持master节点故障恢复
 ```
+准备二进制文件：
+```
+1、master节点的二进制文件
+kube-apiserver、kube-controller-manager、kube-scheduler、kubectl放到deploy/packages/kubernetes/master下
+2、node节点的二进制文件
+kubelet、kube-proxy放到deploy/packages/kubernetes/nodes下
+3、harbor
+将解压后的harbor替换deploy/packages/harbor
+```
 ## 二、配置准备
 ### 1、HARBOR、VIP、SSH、ETCD和MASTER配置信息
 #### 1.1、3个master和3个etcd
