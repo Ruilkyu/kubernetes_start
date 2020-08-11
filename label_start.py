@@ -22,9 +22,9 @@ def start_label():
     for i in nodes.readlines():
         a = i.strip('\n').split('-')
         try:
-            os.system('''kubectl label node k8s-node-{0}-{1} {2}={3}{0}-{1}'''.format(a[2], a[3], k, v))
+            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2}'''.format(a[1], a[2], a[3], k, v))
         except:
-            os.system('''kubectl label node k8s-node-{0}-{1} {2}={3}{0}-{1} --overwrite'''.format(a[2], a[3], k, v))
+            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2} --overwrite'''.format(a[1], a[2], a[3], k, v))
 
 
 start_label()
