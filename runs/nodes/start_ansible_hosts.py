@@ -6,6 +6,10 @@
 时间：2020/6/17
 作者：lurui
 修改：基路径 basedir = os.path.dirname(os.path.dirname(os.getcwd()))，改为调用者路径 basedir = os.path.abspath('.')
+
+时间：2020/8/11
+作者：lurui
+修改：node名称由k8s-node-{0}-{1}改为三位k8s-node-{0}-{1}-{2}
 """
 
 import os
@@ -39,10 +43,11 @@ def start_ansible_hosts():
     try:
         for k in nodes_list_fh.readlines():
             result = k.strip("\n").split(".")
-            first = result[2]
-            second = result[3]
+            first = result[1]
+            second = result[2]
+            third = result[3]
             v = k.strip("\n")
-            nodes_ansible_hosts_data += v + " node_name=k8s-node-{0}-{1} ".format(first, second) + "node_ip={0}".format(
+            nodes_ansible_hosts_data += v + " node_name=k8s-node-{0}-{1}-{2} ".format(first, second, third) + "node_ip={0}".format(
                 v) + "\n"
     except Exception as e:
         print(e)

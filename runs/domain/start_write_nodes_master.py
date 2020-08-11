@@ -11,6 +11,10 @@
 时间：2020/8/4
 作者：lurui
 修改：for循环改为multiprocessing.Pool.map方法（并行化）
+
+时间：2020/8/11
+作者：lurui
+修改：node名称由k8s-node-{3}-{4}改为三位k8s-node-{2}-{3}-{4}
 """
 
 import os
@@ -36,7 +40,7 @@ def write_nodes_domain(ip_str):
                 masterpath, first, second, third, fouth), shell=True)
     except subprocess.CalledProcessError:
         subprocess.check_output(
-            '''ansible master -i {0} -m shell -a "echo '{1}.{2}.{3}.{4} k8s-node-{3}-{4}' >> /etc/hosts"'''.format(
+            '''ansible master -i {0} -m shell -a "echo '{1}.{2}.{3}.{4} k8s-node-{2}-{3}-{4}' >> /etc/hosts"'''.format(
                 masterpath, first, second, third, fouth), shell=True)
     except Exception as e:
         print(e)
