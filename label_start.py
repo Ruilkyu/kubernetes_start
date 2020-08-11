@@ -2,6 +2,10 @@
 时间：2020/7/1
 作者：lurui
 功能：k8s集群节点打标签
+
+时间：2020/8/11
+作者：lurui
+修改：node名称由k8s-node-{0}-{1}改为三位k8s-node-{0}-{1}-{2}
 """
 import os
 import configparser
@@ -22,9 +26,9 @@ def start_label():
     for i in nodes.readlines():
         a = i.strip('\n').split('-')
         try:
-            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2}'''.format(a[1], a[2], a[3], k, v))
+            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2}'''.format(a[2], a[3], a[4], k, v))
         except:
-            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2} --overwrite'''.format(a[1], a[2], a[3], k, v))
+            os.system('''kubectl label node k8s-node-{0}-{1}-{2} {3}={4}{0}-{1}-{2} --overwrite'''.format(a[2], a[3], a[4], k, v))
 
 
 start_label()
