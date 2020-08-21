@@ -18,10 +18,10 @@ echo "BOSS,Add Docker Completed!"
 
 echo "BOSS,Starting Add Config Files!"
 
-ansible nodes -i ${2} -m copy -a "src=${3}/docker.service dest=/usr/lib/systemd/system/docker.service"
+ansible nodes -i ${2} -m copy -a "src=${3}/docker.service dest=/lib/systemd/system/docker.service"
 ansible nodes -i ${2} -m copy -a "src=${3}/kubernetes.conf dest=/etc/sysctl.d/kubernetes.conf"
-ansible nodes -i ${2} -m copy -a "src=${3}/flanneld.service dest=/usr/lib/systemd/system/flanneld.service"
-ansible nodes -i ${2} -m copy -a "src=${3}/kubelet.service dest=/usr/lib/systemd/system/kubelet.service"
-ansible nodes -i ${2} -m copy -a "src=${3}/kube-proxy.service dest=/usr/lib/systemd/system/kube-proxy.service"
+ansible nodes -i ${2} -m copy -a "src=${3}/flanneld.service dest=/lib/systemd/system/flanneld.service"
+ansible nodes -i ${2} -m copy -a "src=${3}/kubelet.service dest=/lib/systemd/system/kubelet.service"
+ansible nodes -i ${2} -m copy -a "src=${3}/kube-proxy.service dest=/lib/systemd/system/kube-proxy.service"
 
 echo "BOSS,Add Config Files Completed!"

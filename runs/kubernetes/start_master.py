@@ -24,7 +24,7 @@ def start_master():
     try:
         copy_api_svc = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/api dest=/tmp/"'''.format(masterpath, cfg_path), shell=True)
         print(copy_api_svc.decode())
-        add_api_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/api/ && cp kube-apiserver.service  /usr/lib/systemd/system/kube-apiserver.service && cp token.csv /kubernetes/kubernetes/cfg/token.csv && rm -rf /tmp/*"'''.format(masterpath), shell=True)
+        add_api_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/api/ && cp kube-apiserver.service  /lib/systemd/system/kube-apiserver.service && cp token.csv /kubernetes/kubernetes/cfg/token.csv && rm -rf /tmp/*"'''.format(masterpath), shell=True)
         print(add_api_svc.decode())
     except Exception as e:
         print(e)
@@ -34,7 +34,7 @@ def start_master():
     try:
         copy_controller = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/controller dest=/tmp/"'''.format(masterpath, cfg_path), shell=True)
         print(copy_controller.decode())
-        add_controller = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/controller/ && cp kube-controller-manager.service  /usr/lib/systemd/system/kube-controller-manager.service && cp kube-controller-manager  /kubernetes/kubernetes/cfg/kube-controller-manager && rm -rf /tmp/*"'''.format(masterpath), shell=True)
+        add_controller = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/controller/ && cp kube-controller-manager.service  /lib/systemd/system/kube-controller-manager.service && cp kube-controller-manager  /kubernetes/kubernetes/cfg/kube-controller-manager && rm -rf /tmp/*"'''.format(masterpath), shell=True)
         print(add_controller.decode())
     except Exception as e:
         print(e)
@@ -45,7 +45,7 @@ def start_master():
         copy_scheduler = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/scheduler dest=/tmp/"'''.format(masterpath, cfg_path),
             shell=True)
         print(copy_scheduler.decode())
-        add_scheduler = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/scheduler/ && cp kube-scheduler.service  /usr/lib/systemd/system/kube-scheduler.service && cp  kube-scheduler /kubernetes/kubernetes/cfg/kube-scheduler && rm -rf /tmp/*"'''.format(masterpath), shell=True)
+        add_scheduler = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/scheduler/ && cp kube-scheduler.service  /lib/systemd/system/kube-scheduler.service && cp  kube-scheduler /kubernetes/kubernetes/cfg/kube-scheduler && rm -rf /tmp/*"'''.format(masterpath), shell=True)
         print(add_scheduler.decode())
     except Exception as e:
         print(e)

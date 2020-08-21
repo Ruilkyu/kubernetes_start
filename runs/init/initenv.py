@@ -114,7 +114,7 @@ def initenv(module):
         print("Sir,Starting Add Etcd Config Files! ")
         try:
             copy_etcd_cfg = subprocess.check_output(
-                '''ansible etcd -i {0} -m copy -a "src={1}/etcd.service dest=/usr/lib/systemd/system/etcd.service"'''.format(
+                '''ansible etcd -i {0} -m copy -a "src={1}/etcd.service dest=/lib/systemd/system/etcd.service"'''.format(
                     etcdpath, dockerpath),
                 shell=True)
             print(copy_etcd_cfg.decode())
