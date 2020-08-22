@@ -21,7 +21,7 @@ def start_keepalived():
 
     print("Sir,Starting Install Keepalived!")
     try:
-        install_keepalived_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "yum -y install keepalived && systemctl stop keepalived"'''.format(masterpath), shell=True)
+        install_keepalived_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "apt-get install keepalived -y && systemctl stop keepalived"'''.format(masterpath), shell=True)
         print(install_keepalived_svc.decode())
     except Exception as e:
         print(e)

@@ -20,7 +20,7 @@ def start_haproxy():
 
     print("Sir,Starting Install Haproxy!")
     try:
-        install_haproxy_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "yum -y install haproxy && systemctl stop haproxy"'''.format(masterpath), shell=True)
+        install_haproxy_svc = subprocess.check_output('''ansible master -i {0} -m shell -a "apt-get install haproxy -y && systemctl stop haproxy"'''.format(masterpath), shell=True)
         print(install_haproxy_svc.decode())
     except Exception as e:
         print(e)
