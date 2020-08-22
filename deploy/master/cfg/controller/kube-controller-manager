@@ -1,14 +1,1 @@
-KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false \
---v=2 \
---alsologtostderr=false \
---log-dir=/var/log/kube-controller-manager \
---master=127.0.0.1:8080 \
---leader-elect=true \
---bind-address=127.0.0.1 \
---service-cluster-ip-range=10.0.0.0/16 \
---cluster-cidr=172.20.0.0/8 \
---cluster-name=kubernetes \
---cluster-signing-cert-file=/kubernetes/kubernetes/ssl/ca.pem \
---cluster-signing-key-file=/kubernetes/kubernetes/ssl/ca-key.pem  \
---root-ca-file=/kubernetes/kubernetes/ssl/ca.pem \
---service-account-private-key-file=/kubernetes/kubernetes/ssl/ca-key.pem"
+KUBE_CONTROLLER_MANAGER_OPTS="--logtostderr=false --v=2 --alsologtostderr=false --log-dir=/var/log/kube-controller-manager --master=127.0.0.1:8080 --leader-elect=true --bind-address=127.0.0.1 --service-cluster-ip-range=10.0.0.0/16 --cluster-cidr=172.20.0.0/8 --cluster-name=kubernetes --cluster-signing-cert-file=/kubernetes/kubernetes/ssl/ca.pem --cluster-signing-key-file=/kubernetes/kubernetes/ssl/ca-key.pem --root-ca-file=/kubernetes/kubernetes/ssl/ca.pem --service-account-private-key-file=/kubernetes/kubernetes/ssl/ca-key.pem"
