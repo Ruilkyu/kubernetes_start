@@ -1,4 +1,4 @@
-# kubernetes_start
+# kubernetes_start(该分支支持Ubuntu)
 # 二进制kubernetes部署(高可用)
 ## 一、注意：
 ```
