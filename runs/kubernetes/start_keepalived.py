@@ -38,7 +38,7 @@ def start_keepalived():
 
     print("Sir,Starting Copy Check_Haproxy Script!")
     try:
-        copy_check_haproxy_script = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/cfg/check_haproxy.sh dest=/etc/keepalived/"'''.format(masterpath, keepalived_path), shell=True)
+        copy_check_haproxy_script = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/cfg/check_haproxy.sh dest=/etc/keepalived/ mode=755"'''.format(masterpath, keepalived_path), shell=True)
         print(copy_check_haproxy_script.decode())
     except Exception as e:
         print(e)

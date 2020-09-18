@@ -238,7 +238,10 @@ python3 ./master_start.py
 ```
 ### 4、部署Nodes节点
 ```
+4.1 普通节点
 python3 ./nodes_start.py
+4.2 GPU节点
+python3 ./gpu_nodes_start.py
 ```
 ### 5、节点label
 ```
