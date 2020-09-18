@@ -1,5 +1,5 @@
 # kubernetes_start
-# 二进制kubernetes部署(高可用)
+# 二进制kubernetes部署(高可用,Centos一类)
 ## 一、注意：
 ```
 1、etcd支持1、3、5、7节点
