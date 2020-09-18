@@ -34,7 +34,7 @@ def start_master():
     try:
         copy_controller = subprocess.check_output('''ansible master -i {0} -m copy -a "src={1}/controller dest=/tmp/"'''.format(masterpath, cfg_path), shell=True)
         print(copy_controller.decode())
-        add_controller = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/controller/ && cp kube-controller-manager.service  /usr/lib/systemd/system/kube-controller-manager.service && cp kube-controller-manager  /kubernetes/kubernetes/cfg/kube-controller-manager && rm -rf /tmp/*"'''.format(masterpath), shell=True)
+        add_controller = subprocess.check_output('''ansible master -i {0} -m shell -a "cd /tmp/controller/ && cp kube-controller-manager.service  /usr/lib/systemd/system/kube-controller-manager.service && rm -rf /tmp/*"'''.format(masterpath), shell=True)
         print(add_controller.decode())
     except Exception as e:
         print(e)
@@ -79,6 +79,13 @@ def start_master():
         update_api_svc = subprocess.check_output('''ansible-playbook -i {0} {1}/ansible/master/kube-apiserver.yaml'''.format(masterpath, basedir), shell=True)
         print(update_api_svc.decode())
         print("Sir,Update Kube-Apiserver Config Completed!")
+    except Exception as e:
+        print(e)
+    print("Sir,Update Kube-Controller-Manager Config!")
+    try:
+        update_controller_manager = subprocess.check_output('''ansible-playbook -i {0} {1}/ansible/master/kube-controller-manager.yaml'''.format(masterpath, basedir), shell=True)
+        print(update_controller_manager.decode())
+        print("Sir,Update Kube-Controller-Manager Config Completed!")
     except Exception as e:
         print(e)
 

@@ -27,6 +27,8 @@ def start_ansible_hosts():
     config.read(basedir + '/cfg/config.ini')
     port = config['SSH']['port']
     master_nums = int(config['MASTER']['nums'])
+    service_cluster_ip_range = config['RELATED_IP']['service_cluster_ip_range']
+    cluster_cidr = config['RELATED_IP']['cluster_cidr']
 
     # master_list = basedir + '/cfg/master.txt'
     # try:
@@ -67,12 +69,12 @@ def start_ansible_hosts():
         resultdate = ""
         if master_nums == 1:
             master1 = config['MASTER']['master1']
-            resultdate = master_ansible_hosts_data.format(master1, port)
+            resultdate = master_ansible_hosts_data.format(master1, port, service_cluster_ip_range, cluster_cidr)
         elif master_nums == 3:
             master1 = config['MASTER']['master1']
             master2 = config['MASTER']['master2']
             master3 = config['MASTER']['master3']
-            resultdate = master_ansible_hosts_data.format(master1, master2, master3, port)
+            resultdate = master_ansible_hosts_data.format(master1, master2, master3, port, service_cluster_ip_range, cluster_cidr)
 
         # resultdate = ""
         # resultdate = master_ansible_hosts_data.format(master1, master2, master3, port)

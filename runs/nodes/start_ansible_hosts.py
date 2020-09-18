@@ -22,6 +22,8 @@ def start_ansible_hosts():
     # config.read(basedir + '/cfg/ssh.ini')
     config.read(basedir + '/cfg/config.ini')
     port = config['SSH']['port']
+    clusterdns = config['RELATED_IP']['cluster_dns']
+    clustercidr = config['RELATED_IP']['cluster_cidr']
 
     nodes_list = basedir + '/cfg/nodes.txt'
     try:
@@ -47,8 +49,8 @@ def start_ansible_hosts():
             second = result[2]
             third = result[3]
             v = k.strip("\n")
-            nodes_ansible_hosts_data += v + " node_name=k8s-node-{0}-{1}-{2} ".format(first, second, third) + "node_ip={0}".format(
-                v) + "\n"
+            nodes_ansible_hosts_data += v + " node_name=k8s-node-{0}-{1}-{2} ".format(first, second, third) + "node_ip={0} ".format(
+                v) + "cluster_dns={0} ".format(clusterdns) + "cluster_cidr={0}".format(clustercidr) + "\n"
     except Exception as e:
         print(e)
 

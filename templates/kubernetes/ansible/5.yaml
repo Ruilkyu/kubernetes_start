@@ -8,7 +8,7 @@ KUBE_APISERVER_OPTS="--logtostderr=false \
 --secure-port=6443 \
 --advertise-address={{{{master_ip}}}} \
 --allow-privileged=true \
---service-cluster-ip-range=10.0.0.0/16 \
+--service-cluster-ip-range={{{{service_cluster_ip_range}}}} \
 --enable-admission-plugins=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota,NodeRestriction \
 --authorization-mode=RBAC,Node \
 --enable-bootstrap-token-auth \

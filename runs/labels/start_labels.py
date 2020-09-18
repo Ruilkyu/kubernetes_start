@@ -38,22 +38,22 @@ def start_labels_nodes():
     except Exception as e:
         print(e)
 
-    print("Sir,Starting Label Nodes!")
-    try:
-        for i in ipfile.readlines():
-            i = i.strip()
-            first = i.split('.')[1]
-            second = i.split('.')[2]
-            third = i.split('.')[3]
-            try:
-                subprocess.check_output('''ansible master -i {0} -m shell -a "/kubernetes/kubernetes/bin/kubectl label nodes k8s-node-{1}-{2}-{3} lotus=node{1}-{2}-{3}"'''.format(masterpath, first, second, third), shell=True)
-                print("Sir,Label Nodes Completed!")
-            except Exception as e:
-                print(e)
-                continue
-
-    except Exception as e:
-        print(e)
+    # print("Sir,Starting Label Nodes!")
+    # try:
+    #     for i in ipfile.readlines():
+    #         i = i.strip()
+    #         first = i.split('.')[1]
+    #         second = i.split('.')[2]
+    #         third = i.split('.')[3]
+    #         try:
+    #             subprocess.check_output('''ansible master -i {0} -m shell -a "/kubernetes/kubernetes/bin/kubectl label nodes k8s-node-{1}-{2}-{3} lotus=node{1}-{2}-{3}"'''.format(masterpath, first, second, third), shell=True)
+    #             print("Sir,Label Nodes Completed!")
+    #         except Exception as e:
+    #             print(e)
+    #             continue
+    #
+    # except Exception as e:
+    #     print(e)
 
 
 # start_labels_nodes()

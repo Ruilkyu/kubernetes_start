@@ -44,6 +44,10 @@ master3=10.10.4.13
 [LABEL]
 Key=lotus
 Value=node
+[RELATED_IP]
+cluster_cidr=172.20.0.0/8
+service_cluster_ip_range=10.0.0.0/16
+cluster_dns=10.0.0.2
 [MASTER_RECOVERY]
 nums=1
 priority1=80

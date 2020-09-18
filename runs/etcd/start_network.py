@@ -25,6 +25,8 @@ def start_network():
     config = configparser.ConfigParser()
     config.read(basedir + '/cfg/config.ini')
     etcd_nums = int(config['ETCD']['nums'])
+    cluster_cidr = config['RELATED_IP']['cluster_cidr']
+
     # etcd_list = basedir + '/cfg/etcd.txt'
     # try:
     #     etcd_list_fh = open(etcd_list, mode="r", encoding='utf-8')
@@ -64,19 +66,19 @@ def start_network():
         resultdate = ""
         if etcd_nums == 1:
             etcd1 = config['ETCD']['etcd1']
-            resultdate = etcd_network_data.format(etcd1)
+            resultdate = etcd_network_data.format(etcd1, cluster_cidr)
         elif etcd_nums == 3:
             etcd1 = config['ETCD']['etcd1']
             etcd2 = config['ETCD']['etcd2']
             etcd3 = config['ETCD']['etcd3']
-            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3)
+            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3, cluster_cidr)
         elif etcd_nums == 5:
             etcd1 = config['ETCD']['etcd1']
             etcd2 = config['ETCD']['etcd2']
             etcd3 = config['ETCD']['etcd3']
             etcd4 = config['ETCD']['etcd4']
             etcd5 = config['ETCD']['etcd5']
-            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3, etcd4, etcd5)
+            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3, etcd4, etcd5, cluster_cidr)
         elif etcd_nums == 7:
             etcd1 = config['ETCD']['etcd1']
             etcd2 = config['ETCD']['etcd2']
@@ -85,7 +87,7 @@ def start_network():
             etcd5 = config['ETCD']['etcd5']
             etcd6 = config['ETCD']['etcd6']
             etcd7 = config['ETCD']['etcd7']
-            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3, etcd4, etcd5, etcd6, etcd7)
+            resultdate = etcd_network_data.format(etcd1, etcd2, etcd3, etcd4, etcd5, etcd6, etcd7, cluster_cidr)
 
 
         # if etcd_nums == 1:

@@ -2,4 +2,4 @@
 ansible_ssh_port={1}
 
 [master]
-{0}  master_ip={0} master_priority={2}
+{0}  master_ip={0} master_priority={2} service_cluster_ip_range={3} cluster_cidr={4}
